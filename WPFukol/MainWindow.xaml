@@ -5,8 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFukol"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Title="Math game" Height="376" Width="525">
     <Grid>
+        <materialDesign:Card Padding="32" Margin="10,10,10,0">
+            <Label x:Name="question" Content="Q: How many is 1 + 1?" HorizontalAlignment="Left" FontSize="20"/>
+        </materialDesign:Card>
+        
+        <Label Content="Progress:" HorizontalAlignment="Left" Margin="21,120,0,0" VerticalAlignment="Top" Width="115"/>
+        <Label x:Name="LevelDisplay"  Content="(1/5)" HorizontalAlignment="Left" Margin="82,120,0,0" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="Progress" HorizontalAlignment="Left" Height="19" Value="0" VerticalAlignment="Top" Width="474" Margin="21,146,0,0"/>
+        
+        <Label Content="Time:" HorizontalAlignment="Left" Margin="21,170,0,0" VerticalAlignment="Top" Width="98"/>
+        <ProgressBar x:Name="Timebar" HorizontalAlignment="Left" Height="19" Value="50" VerticalAlignment="Top" Width="474" Margin="21,196,0,0"/>
+        
+        <Button x:Name="But1" Content="1" HorizontalAlignment="Left" Margin="21,241,0,0" VerticalAlignment="Top" Width="230" Height="83" FontSize="30" Click="Button_Click_1"/>
+        <Button x:Name="But2"  Content="2" HorizontalAlignment="Left" Margin="265,241,0,0" VerticalAlignment="Top" Width="230" Height="83" FontSize="30" Click="Button_Click_2"/>
         
     </Grid>
 </Window>
