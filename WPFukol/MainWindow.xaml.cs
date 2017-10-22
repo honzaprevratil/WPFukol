@@ -25,6 +25,7 @@ namespace WPFukol
         public int Level = 0;
         public int PointsPerClick = 50;
         public int TimeProm = 60;
+        public DispatcherTimer timer = new DispatcherTimer();
         int[] LevelsNumber = { 10, 20, 50 };
 
         public MainWindow()
@@ -32,18 +33,24 @@ namespace WPFukol
             InitializeComponent();
             AppendQuestion();
 
-            DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0,0,1);
-            timer.Tick += (sender, args) => { TickDown(TimeProm); };
+            timer.Tick += (sender, args) => { TickDown(); };
             timer.Start();
         }
-        private void TickDown(int c)
+        private void TickDown(int setTime = 0)
         {
-            TimeProm = TimeProm - 10;
-            Timebar.Value = TimeProm;
-            if (TimeProm < 0)
+            if (setTime == 0)
             {
-                GameOver("YOU LOST!!");
+                TimeProm = TimeProm - 10;
+                Timebar.Value = TimeProm;
+                if (TimeProm < 0)
+                {
+                    GameOver("YOU LOST!!");
+                }
+            } else
+            {
+                TimeProm = setTime;
+                Timebar.Value = TimeProm;
             }
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
@@ -62,7 +69,12 @@ namespace WPFukol
         {
             Level = 0;
             TimeProm = 60;
+            timer.Start();
             Progress.Value = 0;
+            But1.Click -= Start_New_Game;
+            But1.Click += Button_Click_1;
+            But2.Click -= Close_Game;
+            But2.Click += Button_Click_2;
             AppendQuestion();
         }
         private void GameOver(string title)
@@ -74,6 +86,7 @@ namespace WPFukol
             But2.Content = "QUIT";
             But2.Click -= Button_Click_2;
             But2.Click += Close_Game;
+            timer.Stop();
         }
         private void Click(int clickedBut)
         {
@@ -82,9 +95,11 @@ namespace WPFukol
                 if (Progress.Value < (100 - PointsPerClick))
                 {
                     Progress.Value += PointsPerClick;
+                    TickDown(60);
                 } else
                 {
                     Progress.Value = 0;
+                    TimeProm = TimeProm - 20;
                     if (Level < (LevelsNumber.Length - 1))
                     {
                         Level++;
